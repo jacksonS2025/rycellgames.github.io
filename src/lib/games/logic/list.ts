@@ -26,6 +26,7 @@ export function getGamesList() {
             name: undefined,
             description: undefined,
             categories: undefined,
+            exclusiveTags: undefined,
             folder: undefined
         };
     }).filter(Boolean);
