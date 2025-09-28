@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "@/lib/navigation/header";
 import Footer from "@/lib/navigation/footer";
+import PrimaryScripts from "@/lib/scripts/primaryScripts";
 
 export default function RootLayout({
   children,
@@ -9,6 +10,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <PrimaryScripts />
+      </head>
       <body
         className={` antialiased`}
       >
