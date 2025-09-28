@@ -18,11 +18,24 @@ export default function Home() {
     'vehicles',
     'arcade',
     'adventure',
-    'action'
+    'action',
+    'new'
   ]
   // these are categories that display on front page
 
   const categoryMap: Record<string, Array<any>> = {};
+  const specialTagsMap: Record<string, Array<any>> = {};
+
+  gamesList.forEach(game => {
+    if (!game.folder) return;
+    if (Array.isArray(game.exclusiveTags)) {
+      game.exclusiveTags.forEach((tag: string) => {
+        if (!specialTagsMap[tag]) specialTagsMap[tag] = []
+        specialTagsMap[tag].push(game)
+      })
+    }
+  }) // function to list all EXCLUSIVE tags (new, popular etc.)
+
   gamesList.forEach(game => {
     if (Array.isArray(game.categories)) {
       game.categories.forEach((cat: string) => {
@@ -35,7 +48,6 @@ export default function Home() {
   return (
     <div className="w-full p-5">
       <div className="flex flex-col w-full gap-5">
-        {/* Popular Section */}
         <div className="grid grid-cols-4 not-md:grid-cols-1 gap-5 overflow-hidden not-md:grid-rows-1">
           {
             popular.map((info, index) => {
@@ -46,6 +58,24 @@ export default function Home() {
               return <LargeCard name={info.name} id={info.folder} key={info.folder} />
             })
           }
+        </div>
+        {
+          Object.keys(specialTagsMap).sort().map(tag => {
+            return <div key={'specialCards'}>
+              <h1 className="text-5xl mb-3">{tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
+              <div className="grid grid-cols-6 not-md:grid-cols-2 gap-5 grow max-h-full">
+                {specialTagsMap[tag].map((info: any) => {
+                  if (!info.folder) return null;
+                  if (!primaryCategories.includes(tag)) return null;
+                  gamesDisplayed.push(info.folder);
+                  return <GridCard name={info.name} id={info.folder} key={info.folder} />;
+                })}
+              </div>
+            </div>
+          })
+        }
+        <div>
+
         </div>
         <h1 className="text-5xl">Popular</h1>
         <div className="grid grid-cols-6 not-md:grid-cols-2 gap-5 grow max-h-full">
@@ -64,11 +94,12 @@ export default function Home() {
           }
         </div>
 
-        {/* Category Section */}
+        {/* seperate category sections */}
         <div className="flex flex-col gap-8">
           {Object.keys(categoryMap).sort().map(category => (
             primaryCategories.includes(category) ? <div key={category}>
-              {primaryCategories.includes(category) ? <h2 className="text-4xl mb-3">{category.charAt(0).toUpperCase() + category.slice(1)}</h2>:null}
+              <h2 className="text-4xl mb-3">{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+              
               <div className="grid grid-cols-6 not-md:grid-cols-2 gap-5 grow max-h-full">
                 {categoryMap[category].map((info: any) => {
                   if (!info.folder) return null;
@@ -77,6 +108,7 @@ export default function Home() {
                   return <GridCard name={info.name} id={info.folder} key={info.folder} />;
                 })}
               </div> 
+            
             </div> : null
           ))}
         </div>

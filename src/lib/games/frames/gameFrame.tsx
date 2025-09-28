@@ -4,9 +4,10 @@ import { Maximize } from "lucide-react";
 
 type game = {
     name: string,
-    categories: string,
+    categories: string[],
     description: string,
-    id: string
+    id: string,
+    exclusiveTags?: string[];
 }
 type frameParams = {
     game: game

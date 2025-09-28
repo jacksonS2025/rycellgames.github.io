@@ -10,8 +10,10 @@ type PageProps = {
 
 type game = {
     name: string;
-    categories: string;
+    categories: string[];
     description: string;
+    exclusiveTags?: string[];
+    id: string;
 };
 
 type params = {
@@ -46,11 +48,20 @@ export default async function GamePage({ params }: PageProps) {
             <title>{`${game.name} | Rycell Games`}</title>
             <GameFrame game={game} />
             <div className="bg-main-800 rounded-4xl min-h-50 p-5 flex flex-row not-md:flex-col gap-5">
-                <img src={`/static/images/games/${game.id}.webp`} alt={game.name} className="max-w-50 aspect-square object-cover rounded-4xl"></img>
+                <img src={`/static/images/games/${game.id}.webp`} alt={game.name} className="max-w-50 aspect-square object-cover rounded-4xl not-md:max-w-full not-md:w-full"></img>
                 <div>
                     <p className="text-3xl">{game.name}</p>
                     <p>{game.description}</p>
                     <p>Tags: {game.categories.map((tag: string) => tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1)).join(', ')}</p>
+                    <div className="flex flex-row gap-5 mt-2">
+                        {
+                            (() => {
+                                if (game.exclusiveTags?.includes('new')) {
+                                    return <p className="bg-blue-600 px-1 rounded-sm">New</p>
+                                }
+                            })()
+                        }
+                    </div>
                 </div>
             </div>
             <p className="text-5xl">More Like This:</p>

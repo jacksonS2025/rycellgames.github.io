@@ -7,6 +7,7 @@ type gameData = {
     name: string;
     description: string;
     categories: string;
+    exclusiveTags: string[]
 }
 
 export function getGamesList() {
