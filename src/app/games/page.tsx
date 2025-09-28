@@ -97,6 +97,20 @@ export default function Home() {
           }
         </div>
       </div>
+            <div className="flex flex-col gap-5 mt-5 bg-main-700 p-5 rounded-2xl">
+        <h1 className="text-5xl">Rycell Games - Unblocked Games at School</h1>
+        <p>Rycell Games has games that can be played and accessed anywhere - from school, home, or even the office if you’re feeling it. Rycell Games is your free gateway to a place where there is no limit to the fun that you can have!</p>
+        <h2 className="text-4xl">No Download? No Problem!</h2>
+        <p>Our site has Unblocked Games that don’t need any downloading whatsoever to run. Whether you’re on a Chromebook, don’t have any administrator perms to install anything, we’ve got your back on that one. Check out the variety of games to play on any OS.</p>
+        <p>Enjoy trending titles and popular unblocked games to play at school like:</p>
+        <a href="https://rycellgames.github.io/games/driftboss/">Drift Boss</a>
+        <a href="https://rycellgames.github.io/games/snowrider3d/">Snow Rider 3D</a>
+        <a href="https://rycellgames.github.io/games/motox3m2/">Moto X3M 2</a>
+        <a href="https://rycellgames.github.io/games/boxingrandom/">Boxing Random</a>
+        <a href="https://rycellgames.github.io/games/worldshardestgame/">The Worlds Hardest Game</a>
+        <p>And that’s a small part of our collection of games!</p>
+
+      </div>
     </div>
   );
 }
