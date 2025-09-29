@@ -4,5 +4,8 @@
     "adventure"
   ],
   "name": "Cookie Clicker",
-  "description": "Cookie Clicker is a fun and addictive idle clicker game to play to kill time!"
+  "description": "Cookie Clicker is a fun and addictive idle clicker game to play to kill time!",
+  "exclusiveTags": [
+    "popular"
+  ]
 }

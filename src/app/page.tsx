@@ -19,7 +19,7 @@ export default function Home() {
     'arcade',
     'adventure',
     'action',
-    'new'
+    'new',
   ]
   // these are categories that display on front page
 
@@ -61,10 +61,12 @@ export default function Home() {
         </div>
         {
           Object.keys(specialTagsMap).sort().map(tag => {
-            return <div key={'specialCards'}>
+            if (!primaryCategories.includes(tag)) return null;
+            return <div key={`specialTags.${tag}`}>
               <h1 className="text-5xl mb-3">{tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
               <div className="grid grid-cols-6 not-md:grid-cols-2 gap-5 grow max-h-full">
                 {specialTagsMap[tag].map((info: any) => {
+                  console.log(info)
                   if (!info.folder) return null;
                   if (!primaryCategories.includes(tag)) return null;
                   gamesDisplayed.push(info.folder);

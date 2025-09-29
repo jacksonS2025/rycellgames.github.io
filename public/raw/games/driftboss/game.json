@@ -4,5 +4,8 @@
     "arcade"
   ],
   "name": "Drift Boss",
-  "description": "Drift Boss is a casual one-click driving game where you drive your car around very tricky corners and over bumps, aiming to reach what seems like an infinite end!"
+  "description": "Drift Boss is a casual one-click driving game where you drive your car around very tricky corners and over bumps, aiming to reach what seems like an infinite end!",
+  "exclusiveTags": [
+    "popular"
+  ]
 }

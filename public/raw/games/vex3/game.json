@@ -3,5 +3,8 @@
     "action"
   ],
   "name": "Vex 3",
-  "description": "Vex 3 is a challenging platformer game that pushes players to their limits with awesome stunts and crazy obstacles."
+  "description": "Vex 3 is a challenging platformer game that pushes players to their limits with awesome stunts and crazy obstacles.",
+  "exclusiveTags": [
+    "popular"
+  ]
 }

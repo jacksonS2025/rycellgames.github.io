@@ -10,5 +10,8 @@
     "io"
   ],
   "name": "Tiny Fishing",
-  "description": "Tiny Fishing is a fun fishing game developed by Mad Buffer. Drag your mouse to catch the fish, and remember to upgrade your gear to get more and bigger fish."
+  "description": "Tiny Fishing is a fun fishing game developed by Mad Buffer. Drag your mouse to catch the fish, and remember to upgrade your gear to get more and bigger fish.",
+  "exclusiveTags": [
+    "popular"
+  ]
 }

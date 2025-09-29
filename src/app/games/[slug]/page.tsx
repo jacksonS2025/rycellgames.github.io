@@ -61,6 +61,13 @@ export default async function GamePage({ params }: PageProps) {
                                 }
                             })()
                         }
+                        {
+                            (() => {
+                                if (game.exclusiveTags?.includes('popular')) {
+                                    return <p className="bg-amber-600 px-1 rounded-sm">Popular</p>
+                                }
+                            })()
+                        }
                     </div>
                 </div>
             </div>

@@ -3,5 +3,8 @@
     "action"
   ],
   "name": "Worlds Hardest Game",
-  "description": "Use the arrow keys to move the red square to the end zone. Collect the yellow coins while avoiding the blue balls to pass the level."
+  "description": "Use the arrow keys to move the red square to the end zone. Collect the yellow coins while avoiding the blue balls to pass the level.",
+  "exclusiveTags": [
+    "popular"
+  ]
 }

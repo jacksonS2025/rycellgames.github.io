@@ -8,5 +8,8 @@
     "endless"
   ],
   "name": "Crossy Road",
-  "description": "Crossy Road is the 8-bit endless arcade hopper that started it all. Collect custom characters and navigate freeways, railroads, rivers and much more."
+  "description": "Crossy Road is the 8-bit endless arcade hopper that started it all. Collect custom characters and navigate freeways, railroads, rivers and much more.",
+  "exclusiveTags": [
+    "popular"
+  ]
 }
