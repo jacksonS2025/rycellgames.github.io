@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import GameFrame from "@/lib/games/frames/gameFrame";
+import { notFound } from "next/navigation";
 import { GridCard } from "@/lib/games/cards/gridCard";
 import { marked } from "marked";
 type PageProps = {
@@ -154,9 +155,9 @@ export default async function GamePage({ params }: PageProps) {
         const games = await findCategory(slug);
         const categoryDescription = await findCategoryDescription(slug)
 
-        if (!games[0]) return {
-            notFound: true,
-        };
+        if (!games[0]) {
+            notFound();
+        }
 
 
         return (
