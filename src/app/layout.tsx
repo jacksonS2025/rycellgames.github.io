@@ -12,6 +12,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <PrimaryScripts />
+        <meta name="google-site-verification" content="md-SDraxZZxz_PUPJwrZO94ZLEmj0KIxgSj9B4UOhPU" />
       </head>
       <body
         className={` antialiased`}
