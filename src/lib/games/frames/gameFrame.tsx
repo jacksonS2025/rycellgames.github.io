@@ -20,7 +20,7 @@ export default function GameFrame({ game }: frameParams) {
 
     return (
 
-            <div className="bg-main-800 flex flex-col rounded-4xl overflow-hidden">
+            <div className="bg-main-800 rounded-2xl flex flex-col  overflow-hidden">
                 <iframe src={`/raw/games/${game.id}/index.html`} className="w-full aspect-video" title={game.name} ref={iframe}></iframe>
                 <div className="grow p-5 flex flex-row justify-between">
                     <h1 className="text-xl">{game.name ?? game.id}</h1>

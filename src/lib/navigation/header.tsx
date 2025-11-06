@@ -1,7 +1,7 @@
 import '@/app/globals.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Gamepad, InfoIcon, Mail, Search } from 'lucide-react'
+import { Gamepad, InfoIcon, Mail, Search, Gamepad2, Puzzle, CarFront } from 'lucide-react'
 
 export default function Header() { // really just a sidebar
     return (
@@ -16,11 +16,17 @@ export default function Header() { // really just a sidebar
                         height={256}
                     />
                 </Link>
+
                 <ul className="flex flex-col gap-4 w-full px-2">
+                    <li>
+                        <span className="text-white opacity-0 w-full px-2 py-2 text-left group-hover:opacity-100 text-lg transition-opacity duration-300">
+                            Games
+                        </span>
+                    </li>
                     <li>
                         <Link href="/games" className="flex items-center gap-3 py-2 px-2 rounded hover:bg-main-600 transition-colors">
                             <span>
-                                <Gamepad />
+                                <Gamepad2 />
                             </span>
                             <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Games</span>
                         </Link>
@@ -32,6 +38,40 @@ export default function Header() { // really just a sidebar
                             </span>
                             <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Search</span>
                         </Link>
+                    </li>
+                    <li>
+                        <span className="text-white opacity-0 w-full px-2 py-2 text-left group-hover:opacity-100 text-lg transition-opacity duration-300">
+                            Categories
+                        </span>
+                    </li>
+                    <li>
+                        <Link href="/games/arcade" className="flex items-center gap-3 py-2 px-2 rounded hover:bg-main-600 transition-colors">
+                            <span className="material-icons text-white">
+                                <Gamepad />
+                            </span>
+                            <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Arcade</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/games/puzzle" className="flex items-center gap-3 py-2 px-2 rounded hover:bg-main-600 transition-colors">
+                            <span className="material-icons text-white">
+                                <Puzzle />
+                            </span>
+                            <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Puzzle</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/games/vehicle" className="flex items-center gap-3 py-2 px-2 rounded hover:bg-main-600 transition-colors">
+                            <span className="material-icons text-white">
+                                <CarFront />
+                            </span>
+                            <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Vehicle</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <span className="text-white opacity-0 w-full px-2 py-2 text-left group-hover:opacity-100 text-lg transition-opacity duration-300">
+                            Info
+                        </span>
                     </li>
                     <li>
                         <Link href="/about" className="flex items-center gap-3 py-2 px-2 rounded hover:bg-main-600 transition-colors">

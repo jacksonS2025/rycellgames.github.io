@@ -12,6 +12,15 @@ body {
   font-family: "Geist", sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: revert;
+}
+
 @theme inline {
   --color-main-50: var(--color-gray-50);
   --color-main-100: var(--color-gray-100);
