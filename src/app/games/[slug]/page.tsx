@@ -5,11 +5,6 @@ import GameFrame from "@/lib/games/frames/gameFrame";
 import { notFound } from "next/navigation";
 import { GridCard } from "@/lib/games/cards/gridCard";
 import { marked } from "marked";
-type PageProps = {
-    params: {
-        slug: string;
-    };
-};
 
 type game = {
     name: string;
@@ -93,7 +88,7 @@ async function getGameData(slug: string) {
     const fileContents = fs.readFileSync(filePath, "utf-8");
     return { id: slug, ...JSON.parse(fileContents) };
 }
-export async function generateMetadata({ params }: { params: params }) {
+export async function generateMetadata({ params }: { params: any }) {
     // Determine whether this slug corresponds to a real game by checking for the
     // presence of game.json. Don't rely on a custom `isGame` flag in params.
     const gameJsonPath = path.join(process.cwd(), "public/raw/games", params.slug, "game.json");
@@ -141,7 +136,7 @@ async function findCategoryDescription(category: string) {
 
 }
 
-export default async function GamePage({ params }: PageProps) {
+export default async function GamePage({ params }: { params: any }) {
     // params is a plain object supplied by Next.js — don't await it.
     const { slug } = params;
 
