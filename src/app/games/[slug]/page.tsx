@@ -1,10 +1,11 @@
 
-import fs from "fs";
+import fs, { read } from "fs";
 import path from "path";
 import GameFrame from "@/lib/games/frames/gameFrame";
 import { notFound } from "next/navigation";
 import { GridCard } from "@/lib/games/cards/gridCard";
 import { marked } from "marked";
+import { title } from "process";
 
 type game = {
     name: string;
@@ -22,6 +23,11 @@ type Category = {
     title: string
 }
 
+type categoryMetaData = {
+    description?: string,
+    title?: string,
+    thumbnail?: string
+}
 
 export async function generateStaticParams() {
 
@@ -81,6 +87,8 @@ async function findCategory(category: string) {
     return games;
 }
 
+
+
 async function getGameData(slug: string) {
 
     const gameDir = path.join(process.cwd(), "public/raw/games", slug);
@@ -94,9 +102,33 @@ export async function generateMetadata({ params }: { params: any }) {
     const gameJsonPath = path.join(process.cwd(), "public/raw/games", params.slug, "game.json");
     const isGame = fs.existsSync(gameJsonPath);
 
+
     if (!isGame) {
+
+        const categoryDetails = await readCategory(params.slug);
+        categoryDetails.metadata
+
+
+
         return {
-            title: `${params.slug.charAt(0).toUpperCase() + params.slug.slice(1)}`
+            title: categoryDetails.metadata?.title ?? `${params.slug.charAt(0).toUpperCase() + params.slug.slice(1)} | Rycell Games`,
+            description: categoryDetails.metadata?.description ?? `Play ${params.slug} games on Rycell Games today!`,
+            openGraph: {
+                title: categoryDetails.metadata?.title ?? `${params.slug.charAt(0).toUpperCase() + params.slug.slice(1)} | Rycell Games`,
+                description: categoryDetails.metadata?.description ?? `Play ${params.slug} games on Rycell Games today!`,
+                images: [
+                    categoryDetails.metadata?.thumbnail ?? {
+                        url: categoryDetails.metadata?.thumbnail,
+                        alt: categoryDetails.metadata?.title
+                    }
+                ]
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: categoryDetails.metadata?.title ?? `${params.slug.charAt(0).toUpperCase() + params.slug.slice(1)} | Rycell Games`,
+                description: categoryDetails.metadata?.description ?? `Play ${params.slug} games on Rycell Games today!`,
+                images: [categoryDetails.metadata?.thumbnail ?? categoryDetails.metadata?.thumbnail],
+            },
         };
     }
 
@@ -109,10 +141,10 @@ export async function generateMetadata({ params }: { params: any }) {
             title: game.name,
             description: `${game.description}, play ${game.name} today!`,
             images: [
-            {
-                url: `https://rycellgames.github.io/static/images/games/${game.id}.webp`,
-                alt: game.name,
-            },
+                {
+                    url: `https://rycellgames.github.io/static/images/games/${game.id}.webp`,
+                    alt: game.name,
+                },
             ],
         },
         twitter: {
@@ -121,19 +153,22 @@ export async function generateMetadata({ params }: { params: any }) {
             description: game.description,
             images: [`https://rycellgames.github.io/static/images/games/${game.id}.webp`],
         },
-        };
+    };
 }
 
-async function findCategoryDescription(category: string) {
 
-    const mdPath = path.join(process.cwd(), 'src/app/games/md/categories')
-    const mdExists = fs.existsSync(path.join(mdPath, `${category}.md`))
+async function readCategory(category: string) {
+    const detailsPath = path.join(process.cwd(), 'src/app/games/md/categories', category)
+    const mdExists = fs.existsSync(path.join(detailsPath, `index.md`))
+    const metaDataExists = fs.existsSync(path.join(detailsPath, 'meta.json'))
 
-    if (!mdExists) return undefined
-    const fileContents = fs.readFileSync(path.join(mdPath, `${category}.md`), 'utf-8')
-    const html = marked.parse(fileContents);
-    return html;
-
+    const categoryMetaData = metaDataExists ? fs.readFileSync(path.join(detailsPath, 'meta.json'), 'utf-8') : undefined
+    const fileContents = mdExists ? fs.readFileSync(path.join(detailsPath, `index.md`), 'utf-8') : undefined
+    const html = fileContents ? marked.parse(fileContents) : undefined;
+    return {
+        markdown: html,
+        metadata: categoryMetaData ? JSON.parse(categoryMetaData) as categoryMetaData : undefined
+    };
 }
 
 export default async function GamePage({ params }: { params: any }) {
@@ -148,7 +183,7 @@ export default async function GamePage({ params }: { params: any }) {
         // Treat as a category: find games in this category and render them.
 
         const games = await findCategory(slug);
-        const categoryDescription = await findCategoryDescription(slug)
+        const categoryDetails = await readCategory(slug);
 
         if (!games[0]) {
             notFound();
@@ -181,10 +216,10 @@ export default async function GamePage({ params }: { params: any }) {
                     );
                 })()}
 
-                {categoryDescription ? (
+                {categoryDetails.markdown ? (
                     <div
                         className="flex flex-col gap-5 mt-5 bg-main-700 p-5 rounded-2xl"
-                        dangerouslySetInnerHTML={{ __html: categoryDescription as string }}
+                        dangerouslySetInnerHTML={{ __html: categoryDetails.markdown as string }}
                     />
                 ) : undefined}
             </div>
