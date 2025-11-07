@@ -109,19 +109,19 @@ export async function generateMetadata({ params }: { params: any }) {
             title: game.name,
             description: `${game.description}, play ${game.name} today!`,
             images: [
-                {
-                    url: `/static/images/games/${game.id}.webp`,
-                    alt: game.name,
-                },
+            {
+                url: `https://rycellgames.github.io/static/images/games/${game.id}.webp`,
+                alt: game.name,
+            },
             ],
         },
         twitter: {
             card: "summary_large_image",
             title: game.name,
             description: game.description,
-            images: [`/static/images/games/${game.id}.webp`],
+            images: [`https://rycellgames.github.io/static/images/games/${game.id}.webp`],
         },
-    };
+        };
 }
 
 async function findCategoryDescription(category: string) {
@@ -154,20 +154,39 @@ export default async function GamePage({ params }: { params: any }) {
             notFound();
         }
 
+        const displayedGames = []
 
         return (
-            <div className="p-5">
+            <div className="p-5 flex flex-col gap-5">
                 <h1 className="text-4xl mb-5 capitalize">{slug} Games</h1>
-                <div className="grid grid-cols-6 gap-5 not-md:grid-cols-2">
-                    {games.map((game) => (
-                        <GridCard key={game.id} name={game.name} id={game.id} />
-                    ))}
+                {(() => {
+                    const featured = games.slice(0, 4);
+                    const featuredIds = new Set(featured.map(g => g.id));
+                    const others = games.filter((g) => !featuredIds.has(g.id));
 
-                </div>
-                {categoryDescription ? <div
-                    className="flex flex-col gap-5 mt-5 bg-main-700 p-5 rounded-2xl"
-                    dangerouslySetInnerHTML={{ __html: categoryDescription as string }}
-                /> : undefined}
+                    return (
+                        <>
+                            <div className="grid grid-cols-4 gap-5 not-md:grid-cols-1">
+                                {featured.map((game) => (
+                                    <GridCard key={`${game.id}Popular`} name={game.name} id={game.id} />
+                                ))}
+                            </div>
+
+                            <div className="grid grid-cols-6 gap-5 not-md:grid-cols-2">
+                                {others.map((game) => (
+                                    <GridCard key={game.id} name={game.name} id={game.id} />
+                                ))}
+                            </div>
+                        </>
+                    );
+                })()}
+
+                {categoryDescription ? (
+                    <div
+                        className="flex flex-col gap-5 mt-5 bg-main-700 p-5 rounded-2xl"
+                        dangerouslySetInnerHTML={{ __html: categoryDescription as string }}
+                    />
+                ) : undefined}
             </div>
         );
     }
