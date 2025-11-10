@@ -1,6 +1,6 @@
 {
     "name": "Race Survival",
     "description": "Fight against bots to be the last person to fall into the water on a fragile platform!",
-    "categories": ["arcade", "car", "racing", "vehicles"],
+    "categories": ["arcade", "car", "racing", "vehicle"],
     "exclusiveTags": ["new"]
 }

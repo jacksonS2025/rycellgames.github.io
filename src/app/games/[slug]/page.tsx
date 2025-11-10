@@ -233,10 +233,23 @@ export default async function GamePage({ params }: { params: any }) {
             <GameFrame game={game} />
             <div className="bg-main-800 min-h-50 rounded-2xl p-5 flex flex-row not-md:flex-col gap-5">
                 <img src={`/static/images/games/${game.id}.webp`} alt={game.name} className="max-w-50 rounded-2xl aspect-square object-cover not-md:max-w-full not-md:w-full"></img>
-                <div>
-                    <p className="text-3xl">{game.name}</p>
-                    <p>{game.description}</p>
-                    <p>Tags: {game.categories.map((tag: string) => tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1)).join(', ')}</p>
+                <div className="flex flex-col gap-2">
+                    
+                    <p className="text-2xl">{game.name}</p>
+                    <div className="flex flex-col">
+                        <details className="flex flex-col gap-1">
+                            <summary>Tags</summary>
+                            <div className="flex flex-col">
+                                {game.categories.map((tag: string) => {
+                                    return <a href={`/games/${tag}`}>{tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1)}</a>
+                                })}
+                            </div>
+                        </details>
+                        <details className="flex flex-col gap-1">
+                            <summary>Description</summary>
+                            <p>{game.description}</p>
+                        </details>
+                    </div>
                     <div className="flex flex-row gap-5 mt-2">
                         {
                             (() => {
